@@ -1,22 +1,40 @@
-# Node
-node_modules/
-npm-debug.log
-
-# Python
-__pycache__/
-*.py[cod]
+# General
+*.log
+*.env
 *.pyc
+__pycache__/
 *.pyo
 *.pyd
-*.pyz
-.env
-
-# Virtual Environments
-venv/
-env/
-ENV/
-
-# IDEs
-.vscode/
-.idea/
 *.swp
+.DS_Store
+.idea/
+.vscode/
+
+# Python - FastAPI
+/backend/__pycache__/
+/backend/*.pyc
+/backend/venv/
+/backend/*.log
+/backend/*.pid
+/backend/*.pyo
+/backend/*.pyd
+
+# Node - React
+/frontend/node_modules/
+/frontend/build/
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+/frontend/.cache
+/frontend/.next
+
+# Nginx
+/nginx/logs/
+
+# Docker
+**/.dockerenv
+
+# Dependency directories (commented out if you want to include them)
+# /node_modules/
+# /venv/

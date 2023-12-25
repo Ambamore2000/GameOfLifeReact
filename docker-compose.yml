@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  ##react:
+  ##  build: ./path-to-react-app
+  ##  ports:
+  ##    - "80:80"  # Expose React on port 80
+  ##  depends_on:
+  ##    - fastapi
+  fastapi:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"  # Expose Nginx on port 8080
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - fastapi
+  ##    - react
