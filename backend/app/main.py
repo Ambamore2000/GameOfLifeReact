@@ -52,7 +52,7 @@ async def initialize_grid():
 #@app.post("/model_predict/", response_model=Grid)
 #async def model_predict(grid: Grid) -> Grid:
 @app.post("/model_predict/")
-async def model_predict(grid):
+async def model_predict(grid: Grid):
     # Endpoint to predict the next state of the grid
     prediction_grid = np.array(grid.data)
     predicted_next_state = model.predict(np.expand_dims(np.expand_dims(prediction_grid, axis=0), axis=-1))[0]
@@ -79,7 +79,7 @@ def simulate_game_of_life(grid):
 #@app.post("/actual_predict/", response_model=Grid)
 #async def actual_predict(grid: Grid) -> Grid:
 @app.post("/actual_predict/")
-async def actual_predict(grid):
+async def actual_predict(grid: Grid):
     # Endpoint to predict using the actual game rules
     current_state = np.array(grid.data)
     next_state = simulate_game_of_life(current_state)
