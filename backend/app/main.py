@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 import os
-from typing import List
+#from typing import List
 
 app = FastAPI()
 
@@ -20,7 +20,7 @@ app.add_middleware(
 
 # Pydantic model for grid data
 class Grid(BaseModel):
-    data: List[List[int]]
+    data: list#List[List[int]]
 
 # Custom metric function for TensorFlow model
 def dice_coefficient(y_true: tf.Tensor, y_pred: tf.Tensor, smooth: float = 1e-6) -> tf.Tensor:
