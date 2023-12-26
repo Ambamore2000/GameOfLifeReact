@@ -63,7 +63,7 @@ async def model_predict(grid: Grid):
 #def simulate_game_of_life(grid: List[List[int]]) -> List[List[int]]:
 def simulate_game_of_life(grid):
     # Function to simulate the Game of Life rules
-    extended_grid = np.pad(grid, pad_width=1, mode='wrap')
+    extended_grid = np.pad(grid, pad_width=1, mode='constant', constant_values=0)
     next_state = np.zeros_like(grid)
 
     for i in range(1, extended_grid.shape[0] - 1):
@@ -75,6 +75,7 @@ def simulate_game_of_life(grid):
                 next_state[i-1, j-1] = 1 if total == 3 else 0
 
     return next_state
+
 
 #@app.post("/actual_predict/", response_model=Grid)
 #async def actual_predict(grid: Grid) -> Grid:
