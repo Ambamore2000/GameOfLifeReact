@@ -12,7 +12,7 @@ def test_initialize_grid():
     assert response.json()['grid'][0][0] == 0
 
 def test_model_predict():
-    test_grid = {'data': [[0 for _ in range(100)] for _ in range(100)]}
+    test_grid = {'prediction': [[0 for _ in range(100)] for _ in range(100)]}
     response = client.post("/model_predict/", json=test_grid)
     assert response.status_code == 200
     assert 'prediction' in response.json()
@@ -25,7 +25,7 @@ def test_actual_predict_glider():
     glider_grid[2][3] = 1
     glider_grid[3][1] = glider_grid[3][2] = glider_grid[3][3] = 1
 
-    response = client.post("/actual_predict/", json={"data": glider_grid})
+    response = client.post("/actual_predict/", json={"prediction": glider_grid})
     assert response.status_code == 200
     result_grid = response.json()['prediction']
 
