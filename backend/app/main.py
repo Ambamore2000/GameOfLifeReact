@@ -41,14 +41,18 @@ except Exception as e:
     raise HTTPException(status_code=500, detail=str(e))
 
 # Endpoints
-@app.get("/initialize/", response_model=Grid)
-async def initialize_grid() -> Grid:
+#@app.get("/initialize/", response_model=Grid)
+#async def initialize_grid() -> Grid:
+@app.get("/initialize/")
+async def initialize_grid():
     # Endpoint to initialize a 100x100 grid
     grid = np.zeros((100, 100), dtype=int).tolist()
     return {"grid": grid}
 
-@app.post("/model_predict/", response_model=Grid)
-async def model_predict(grid: Grid) -> Grid:
+#@app.post("/model_predict/", response_model=Grid)
+#async def model_predict(grid: Grid) -> Grid:
+@app.post("/model_predict/")
+async def model_predict(grid):
     # Endpoint to predict the next state of the grid
     prediction_grid = np.array(grid.data)
     predicted_next_state = model.predict(np.expand_dims(np.expand_dims(prediction_grid, axis=0), axis=-1))[0]
@@ -56,7 +60,8 @@ async def model_predict(grid: Grid) -> Grid:
     predicted_next_state = predicted_next_state.reshape(100, 100)
     return {"prediction": predicted_next_state.tolist()}
 
-def simulate_game_of_life(grid: List[List[int]]) -> List[List[int]]:
+#def simulate_game_of_life(grid: List[List[int]]) -> List[List[int]]:
+def simulate_game_of_life(grid):
     # Function to simulate the Game of Life rules
     extended_grid = np.pad(grid, pad_width=1, mode='wrap')
     next_state = np.zeros_like(grid)
@@ -71,8 +76,10 @@ def simulate_game_of_life(grid: List[List[int]]) -> List[List[int]]:
 
     return next_state
 
-@app.post("/actual_predict/", response_model=Grid)
-async def actual_predict(grid: Grid) -> Grid:
+#@app.post("/actual_predict/", response_model=Grid)
+#async def actual_predict(grid: Grid) -> Grid:
+@app.post("/actual_predict/")
+async def actual_predict(grid):
     # Endpoint to predict using the actual game rules
     current_state = np.array(grid.data)
     next_state = simulate_game_of_life(current_state)
