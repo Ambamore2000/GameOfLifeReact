@@ -12,7 +12,7 @@ def test_initialize_grid():
     assert all(all(cell == 0 for cell in row) for row in grid)
 
 def test_model_predict():
-    test_grid = {'grid': {'data': [[0 for _ in range(100)] for _ in range(100)]}}
+    test_grid = {'data': [[0 for _ in range(100)] for _ in range(100)]}
     response = client.post("/model_predict/", json=test_grid)
     if response.status_code != 200:
         print("Response content:", response.content)
@@ -22,12 +22,12 @@ def test_model_predict():
     assert len(prediction) == 100 and len(prediction[0]) == 100
 
 def test_actual_predict_glider():
-    glider_grid = {'grid': {'data': [[0 for _ in range(100)] for _ in range(100)]}}
-    glider_grid['grid']['data'][1][2] = 1
-    glider_grid['grid']['data'][2][3] = 1
-    glider_grid['grid']['data'][3][1] = glider_grid['grid']['data'][3][2] = glider_grid['grid']['data'][3][3] = 1
+    glider_grid_data = [[0 for _ in range(100)] for _ in range(100)]
+    glider_grid_data[1][2] = 1
+    glider_grid_data[2][3] = 1
+    glider_grid_data[3][1] = glider_grid_data[3][2] = glider_grid_data[3][3] = 1
 
-    response = client.post("/actual_predict/", json=glider_grid)
+    response = client.post("/actual_predict/", json={'data': glider_grid_data})
     if response.status_code != 200:
         print("Response content:", response.content)
     assert response.status_code == 200
