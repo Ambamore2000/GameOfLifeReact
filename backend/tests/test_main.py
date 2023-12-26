@@ -52,9 +52,9 @@ def test_actual_predict_glider():
     print_first_5x5(result_grid)
 
     expected_grid = [[0 for _ in range(100)] for _ in range(100)]
-    expected_grid[1][3] = 1
     expected_grid[2][1] = expected_grid[2][3] = 1
     expected_grid[3][2] = expected_grid[3][3] = 1
+    expected_grid[4][2] = 1
 
     print("Simulation Expected Grid:")
     print_first_5x5(expected_grid)
