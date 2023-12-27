@@ -10,11 +10,12 @@ FROM base as development
 EXPOSE 5173
 CMD ["npm", "run", "dev"]
 
-# Production build
-FROM base as build
+# Production build - Builds the static files for production
+FROM base as production-build
 RUN npm run build
 
+# Production image with Nginx to serve the static files
 FROM nginx:alpine as production
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=production-build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
