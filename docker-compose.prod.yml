@@ -8,6 +8,13 @@ services:
         BUILDKIT_INLINE_CACHE: 1
     networks:
       - webnet
+  gol-fastapi:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    networks:
+      - webnet
   nginx:
     image: nginx:alpine
     ports:
