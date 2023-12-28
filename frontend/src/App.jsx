@@ -57,15 +57,16 @@ const patterns = {
 function App() {
     // State declarations and initializations
     const [grid, setGrid] = useState([]);
+    const [isGridInitialized, setIsGridInitialized] = useState(false);
     const [actualPrediction, setActualPrediction] = useState([]);
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     const [isProcessing, setIsProcessing] = useState(false);
     const [isSimulating, setIsSimulating] = useState(false);
     const [simulationSpeed, setSimulationSpeed] = useState(200);
-    const [selectedPatternCategory, setSelectedPatternCategory] = useState('Still Lifes');
-    const [selectedPatternName, setSelectedPatternName] = useState('Block');
-    const [patternPosition, setPatternPosition] = useState({ x: 0, y: 0 });
-    const [patternRotation, setPatternRotation] = useState(0);
+    const [selectedPatternCategory, setSelectedPatternCategory] = useState('Spaceships');
+    const [selectedPatternName, setSelectedPatternName] = useState('Gosper glider gun');
+    const [patternPosition, setPatternPosition] = useState({ x: 2, y: 2 });
+    const [patternRotation, setPatternRotation] = useState(90);
     const [showBothGrids, setShowBothGrids] = useState(true);
     const toggleSimulation = () => {
         setIsSimulating(!isSimulating);
@@ -81,9 +82,15 @@ function App() {
     }, []);
 
     useEffect(() => {
-        // Automatic grid initialization on page load
         initializeGrid();
     }, []);
+
+    useEffect(() => {
+        if (isGridInitialized) {
+            // Place the pattern once the grid is initialized
+            placePatternOnGrid();
+        }
+    }, [isGridInitialized]);
 
     useEffect(() => {
         // Interval for simulation and prediction
@@ -97,6 +104,7 @@ function App() {
             const response = await axios.get('http://localhost:8000/initialize/');
             setGrid(response.data.grid);
             setActualPrediction(response.data.grid);
+            setIsGridInitialized(true); // Set to true once the grid is initialized
         } catch (error) {
             console.error('Error initializing grid:', error);
         }
