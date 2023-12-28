@@ -1,32 +1,33 @@
 import React from 'react';
 
-function GridDisplay({ gridData, windowSize }) {
-    const renderGrid = (gridData) => {
-        const cellSize = Math.min(
-            windowSize.width / gridData.length,
-            windowSize.height / gridData[0]?.length
-        );
+const GridDisplay = ({ gridData, windowSize }) => {
+    const margin = 500; // A small margin to reduce the overall grid size
+    const numRows = gridData.length;
+    const numCols = gridData[0]?.length || 0;
 
-        return (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                {gridData.map((column, columnIndex) => (
-                    <div key={columnIndex} style={{ display: 'flex', flexDirection: 'column' }}>
-                        {column.map((cell, cellIndex) => (
-                            <div key={`${columnIndex}-${cellIndex}`}
-                                style={{
-                                    width: `${cellSize}px`,
-                                    height: `${cellSize}px`,
-                                    backgroundColor: cell === 1 ? 'black' : 'white'
-                                }}
-                            ></div>
-                        ))}
-                    </div>
-                ))}
-            </div>
-        );
-    };
+    // Adjusted cell size calculation
+    const cellSize = Math.min(
+        (windowSize.width - margin) / numCols,
+        (windowSize.height - margin) / numRows
+    );
 
-    return renderGrid(gridData);
-}
+    return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            {gridData.map((column, columnIndex) => (
+                <div key={columnIndex} style={{ display: 'flex', flexDirection: 'column' }}>
+                    {column.map((cell, cellIndex) => (
+                        <div key={`${columnIndex}-${cellIndex}`}
+                            style={{
+                                width: `${cellSize}px`,
+                                height: `${cellSize}px`,
+                                backgroundColor: cell === 1 ? 'black' : 'white'
+                            }}
+                        ></div>
+                    ))}
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export default GridDisplay;
