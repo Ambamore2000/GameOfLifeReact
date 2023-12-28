@@ -92,7 +92,7 @@ function App() {
 
     const initializeGrid = async () => {
         try {
-            const response = await axios.get('https://fastapi.andrewjkim.me/initialize');
+            const response = await axios.get('http://localhost:8000/initialize/');
             setGrid(response.data.grid);
             setActualPrediction(response.data.grid);
             console.log(response.data.grid);
@@ -103,8 +103,8 @@ function App() {
 
     const simulateAndPredict = async () => {
         try {
-            const modelPromise = axios.post('https://fastapi.andrewjkim.me/model_predict/', { data: grid });
-            const actualPromise = axios.post('https://fastapi.andrewjkim.me/actual_predict/', { data: grid });
+            const modelPromise = axios.post('http://localhost:8000/model_predict/', { data: grid });
+            const actualPromise = axios.post('http://localhost:8000/actual_predict/', { data: grid });
 
             const [modelResponse, actualResponse] = await Promise.all([modelPromise, actualPromise]);
 
