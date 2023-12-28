@@ -66,8 +66,12 @@ function App() {
     const [selectedPatternName, setSelectedPatternName] = useState('Block');
     const [patternPosition, setPatternPosition] = useState({ x: 0, y: 0 });
     const [patternRotation, setPatternRotation] = useState(0);
+    const [showBothGrids, setShowBothGrids] = useState(true);
     const toggleSimulation = () => {
         setIsSimulating(!isSimulating);
+    };
+    const handleShowBothGridsToggle = () => {
+        setShowBothGrids(!showBothGrids);
     };
     useEffect(() => {
         // Window resize handler
@@ -158,6 +162,18 @@ function App() {
                 simulationSpeed={simulationSpeed}
                 handleSpeedChange={handleSpeedChange}
             />
+            
+            {/* Toggle for showing both grids */}
+            <div style={{ marginBottom: '10px' }}>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={showBothGrids}
+                        onChange={handleShowBothGridsToggle}
+                    />
+                    Show Both Grids
+                </label>
+            </div>
 
             <PatternSelector
                 patterns={patterns}
@@ -173,14 +189,23 @@ function App() {
             />
 
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>
-                <div style={{ marginRight: '20px' }}>
-                    <h2>Model Prediction</h2>
-                    <GridDisplay gridData={grid} windowSize={windowSize} />
-                </div>
-                <div>
-                    <h2>Actual Prediction</h2>
-                    <GridDisplay gridData={actualPrediction} windowSize={windowSize} />
-                </div>
+                {showBothGrids ? (
+                    <>
+                        <div style={{ marginRight: '20px' }}>
+                            <h2>Model Prediction</h2>
+                            <GridDisplay gridData={grid} windowSize={windowSize} />
+                        </div>
+                        <div>
+                            <h2>Actual Prediction</h2>
+                            <GridDisplay gridData={actualPrediction} windowSize={windowSize} />
+                        </div>
+                    </>
+                ) : (
+                    <div>
+                        <h2>Model Prediction</h2>
+                        <GridDisplay gridData={grid} windowSize={windowSize} />
+                    </div>
+                )}
             </div>
         </div>
     );
