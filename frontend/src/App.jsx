@@ -62,6 +62,7 @@ function App() {
         height: window.innerHeight
     });
 
+    const [isProcessing, setIsProcessing] = useState(false);
     const [isSimulating, setIsSimulating] = useState(false);
     const [simulationSpeed, setSimulationSpeed] = useState(200); // Default speed in milliseconds
 
@@ -102,6 +103,9 @@ function App() {
     };
 
     const simulateAndPredict = async () => {
+        if (isProcessing) return; // Prevent new simulation if the previous one is still processing
+        setIsProcessing(true);
+
         try {
             const modelPromise = axios.post('http://localhost:8000/model_predict/', { data: grid });
             const actualPromise = axios.post('http://localhost:8000/actual_predict/', { data: grid });
@@ -116,6 +120,8 @@ function App() {
         } catch (error) {
             console.error('Error in model or actual prediction:', error);
             setIsSimulating(false); // Stop the simulation on error
+        } finally {
+            setIsProcessing(false); // Allow new simulation
         }
     };
 
