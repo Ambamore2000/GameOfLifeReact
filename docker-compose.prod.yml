@@ -20,7 +20,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      #- ./nginx-nossl:/etc/nginx/conf.d
+      - ./nginx-ssl:/etc/nginx/conf.d Uncomment this and remove above line to enable SSL
     networks:
       - webnet
 networks:
