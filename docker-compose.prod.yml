@@ -19,8 +19,12 @@ services:
     image: nginx:alpine
     ports:
       - "80:80"
+      - "443:443"                         # ENABLE FOR SSL
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      #- ./nginx-nossl:/etc/nginx/conf.d  # DISABLE FOR SSL
+      - ./nginx-ssl:/etc/nginx/conf.d     # ENABLE FOR SSL
+      - ./ssl/certs:/etc/ssl/certs        # ENABLE FOR SSL
+      - ./ssl/private:/etc/ssl/private    # ENABLE FOR SSL
     networks:
       - webnet
 networks:
