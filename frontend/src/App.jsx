@@ -96,7 +96,7 @@ function App() {
             const response = await axios.get('http://localhost:8000/initialize/');
             setGrid(response.data.grid);
             setActualPrediction(response.data.grid);
-            console.log(response.data.grid);
+            //console.log(response.data.grid);
         } catch (error) {
             console.error('Error initializing grid:', error);
         }
@@ -115,8 +115,8 @@ function App() {
             setGrid(modelResponse.data.prediction);
             setActualPrediction(actualResponse.data.prediction);
 
-            console.log(modelResponse.data.prediction);
-            console.log(actualResponse.data.prediction);
+            //console.log(modelResponse.data.prediction);
+            //console.log(actualResponse.data.prediction);
         } catch (error) {
             console.error('Error in model or actual prediction:', error);
             setIsSimulating(false); // Stop the simulation on error
