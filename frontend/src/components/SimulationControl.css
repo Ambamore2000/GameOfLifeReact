@@ -1,0 +1,60 @@
+.simulation-control {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.slider-container {
+  margin-left: 5px;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+}
+
+  /* Slider track */
+  input[type=range] {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 50%; /* Full width */
+    height: 3px; /* Specified height */
+    background: #ddd; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (optional) */
+    -webkit-transition: .2s; /* Transition for thumb movement */
+    transition: opacity .2s;
+    border-radius: 80px; /* Rounded corners */
+  }
+  
+  /* Slider thumb */
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Width and height of the thumb */
+    height: 20px;
+    background: #070707; /* Black background to match button */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%; /* Circular shape */
+  }
+  
+  input[type=range]:focus {
+    outline: none; /* Removes the blue border */
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #070707;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  /* Optional: Slider thumb hover effect */
+  input[type=range]:hover::-webkit-slider-thumb {
+    background: #333; /* Darker color on hover */
+  }
+  
+  input[type=range]:hover::-moz-range-thumb {
+    background: #333;
+  }

@@ -1,13 +1,14 @@
 import React from 'react';
+import './SimulationControl.css'; // Import App.css
 
 function SimulationControl({ toggleSimulation, isSimulating, simulationSpeed, handleSpeedChange }) {
     return (
-        <div>
+        <div className="simulation-control">
             <button onClick={toggleSimulation}>
-                {isSimulating ? 'Pause Simulation' : 'Start Simulation'}
+                {isSimulating ? 'Pause' : 'Play'}
             </button>
-            <div>
-                <h2>Adjust Simulation Speed</h2>
+                <h3>Speed</h3>
+            <div className="slider-container">
                 <input 
                     type="range" 
                     min="100" 

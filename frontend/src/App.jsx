@@ -180,7 +180,7 @@ function App() {
                     checked={showBothGrids}
                     onChange={handleShowBothGridsToggle}
                 />
-                Show Both Grids
+                Toggle Actual Prediction
                 </label>
             </div>
 
