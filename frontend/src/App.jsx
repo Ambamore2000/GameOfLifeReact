@@ -68,7 +68,10 @@ function App() {
     const [selectedPatternName, setSelectedPatternName] = useState('Gosper glider gun');
     const [patternPosition, setPatternPosition] = useState({ x: 2, y: 2 });
     const [patternRotation, setPatternRotation] = useState(90);
-    const [showBothGrids, setShowBothGrids] = useState(true);
+    const [showBothGrids, setShowBothGrids] = useState(false);
+
+    const [showControls, setShowControls] = useState(false); // State to control visibility
+
     const toggleSimulation = () => {
         setIsSimulating(!isSimulating);
     };
@@ -178,31 +181,42 @@ function App() {
                 simulationSpeed={simulationSpeed}
                 handleSpeedChange={handleSpeedChange}
             />
-            
-            {/* Toggle for showing both grids */}
-            <div className="toggle-container">
-                <label>
-                <input
-                    type="checkbox"
-                    checked={showBothGrids}
-                    onChange={handleShowBothGridsToggle}
-                />
-                Toggle Actual Prediction
-                </label>
-            </div>
 
-            <PatternSelector
-                patterns={patterns}
-                selectedPatternCategory={selectedPatternCategory}
-                setSelectedPatternCategory={setSelectedPatternCategory}
-                selectedPatternName={selectedPatternName}
-                setSelectedPatternName={setSelectedPatternName}
-                patternPosition={patternPosition}
-                setPatternPosition={setPatternPosition}
-                patternRotation={patternRotation}
-                setPatternRotation={setPatternRotation}
-                placePatternOnGrid={placePatternOnGrid}
-            />
+            <div className="control-toggle">
+            <button onClick={() => setShowControls(!showControls)}>
+                {showControls ? "Hide Controls" : "Show Controls"}
+            </button>
+            </div>
+            
+            {/* Render elements based on showControls state */}
+            {showControls && (
+                <>
+                <div className="toggle-container">
+                    <label>
+                    <input
+                        type="checkbox"
+                        checked={showBothGrids}
+                        onChange={handleShowBothGridsToggle}
+                    />
+                    Toggle Actual Prediction
+                    </label>
+                </div>
+
+                <PatternSelector
+                    patterns={patterns}
+                    selectedPatternCategory={selectedPatternCategory}
+                    setSelectedPatternCategory={setSelectedPatternCategory}
+                    selectedPatternName={selectedPatternName}
+                    setSelectedPatternName={setSelectedPatternName}
+                    patternPosition={patternPosition}
+                    setPatternPosition={setPatternPosition}
+                    patternRotation={patternRotation}
+                    setPatternRotation={setPatternRotation}
+                    placePatternOnGrid={placePatternOnGrid}
+                />
+                </>
+            )}
+
 
             <div className="grid-container">
               {showBothGrids ? (

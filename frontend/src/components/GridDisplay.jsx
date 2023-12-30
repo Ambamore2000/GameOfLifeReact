@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => {
-    const margin = 300; // A small margin to reduce the overall grid size
+    const margin = 200; // A small margin to reduce the overall grid size
     const numRows = gridData.length;
     const numCols = gridData[0]?.length || 0;
 
