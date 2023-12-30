@@ -163,6 +163,13 @@ function App() {
         setSimulationSpeed(e.target.value);
     };
 
+    const updateGrid = (newGrid) => {
+        setGrid(newGrid);
+    };
+    
+    const updateActualPrediction = (newGrid) => {
+    setActualPrediction(newGrid);
+    };
     return (
         <div className="app-container">
             <SimulationControl
@@ -202,17 +209,17 @@ function App() {
                 <>
                   <div className="grid-section">
                     <h2>Model Prediction</h2>
-                    <GridDisplay gridData={grid} windowSize={windowSize} />
+                    <GridDisplay isSimulating={isSimulating} gridData={grid} updateGridData={updateGrid} windowSize={windowSize} />
                   </div>
                   <div>
                     <h2>Actual Prediction</h2>
-                    <GridDisplay gridData={actualPrediction} windowSize={windowSize} />
+                    <GridDisplay isSimulating={isSimulating} gridData={actualPrediction} updateGridData={updateGrid} windowSize={windowSize} />
                   </div>
                 </>
               ) : (
                 <div>
                   <h2>Model Prediction</h2>
-                  <GridDisplay gridData={grid} windowSize={windowSize} />
+                  <GridDisplay isSimulating={isSimulating} gridData={grid} updateGridData={updateGrid} windowSize={windowSize} />
                 </div>
               )}
             </div>
