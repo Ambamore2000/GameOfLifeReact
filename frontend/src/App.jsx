@@ -3,6 +3,7 @@ import axios from 'axios';
 import PatternSelector from './components/PatternSelector';
 import SimulationControl from './components/SimulationControl';
 import GridDisplay from './components/GridDisplay';
+import './App.css'; // Import App.css
 
 const patterns = {
     "Still Lifes": {
@@ -163,7 +164,7 @@ function App() {
     };
 
     return (
-        <div>
+        <div className="app-container">
             <SimulationControl
                 toggleSimulation={toggleSimulation}
                 isSimulating={isSimulating}
@@ -172,14 +173,14 @@ function App() {
             />
             
             {/* Toggle for showing both grids */}
-            <div style={{ marginBottom: '10px' }}>
+            <div className="toggle-container">
                 <label>
-                    <input
-                        type="checkbox"
-                        checked={showBothGrids}
-                        onChange={handleShowBothGridsToggle}
-                    />
-                    Show Both Grids
+                <input
+                    type="checkbox"
+                    checked={showBothGrids}
+                    onChange={handleShowBothGridsToggle}
+                />
+                Show Both Grids
                 </label>
             </div>
 
@@ -196,24 +197,24 @@ function App() {
                 placePatternOnGrid={placePatternOnGrid}
             />
 
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>
-                {showBothGrids ? (
-                    <>
-                        <div style={{ marginRight: '20px' }}>
-                            <h2>Model Prediction</h2>
-                            <GridDisplay gridData={grid} windowSize={windowSize} />
-                        </div>
-                        <div>
-                            <h2>Actual Prediction</h2>
-                            <GridDisplay gridData={actualPrediction} windowSize={windowSize} />
-                        </div>
-                    </>
-                ) : (
-                    <div>
-                        <h2>Model Prediction</h2>
-                        <GridDisplay gridData={grid} windowSize={windowSize} />
-                    </div>
-                )}
+            <div className="grid-container">
+              {showBothGrids ? (
+                <>
+                  <div className="grid-section">
+                    <h2>Model Prediction</h2>
+                    <GridDisplay gridData={grid} windowSize={windowSize} />
+                  </div>
+                  <div>
+                    <h2>Actual Prediction</h2>
+                    <GridDisplay gridData={actualPrediction} windowSize={windowSize} />
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <h2>Model Prediction</h2>
+                  <GridDisplay gridData={grid} windowSize={windowSize} />
+                </div>
+              )}
             </div>
         </div>
     );
