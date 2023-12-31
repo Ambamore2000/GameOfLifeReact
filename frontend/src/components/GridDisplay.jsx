@@ -1,13 +1,13 @@
 import React from 'react';
 
 const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => {
-    const margin = 0; // A small margin to reduce the overall grid size
+    const margin = 100; // A small margin to reduce the overall grid size
     const numRows = gridData.length;
     const numCols = gridData[0]?.length || 0;
 
     // Adjusted cell size calculation
     const cellSize = Math.min(
-        (windowSize.width - margin) / numCols,
+        (windowSize.width - margin) / 2 / numCols,
         (windowSize.height - margin) / numRows
     );
     const toggleCellState = (row, col) => {
