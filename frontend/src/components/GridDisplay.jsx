@@ -2,7 +2,7 @@ import React from 'react';
 import './GridDisplay.css'; // Import the new CSS file
 
 const GridDisplay = ({ isSimulating, isEditable, gridData, updateGridData, windowSize }) => {
-    const margin = 150; // A small margin to reduce the overall grid size
+    const margin = 200; // A small margin to reduce the overall grid size
     const numRows = gridData.length;
     const numCols = gridData[0]?.length || 0;
 

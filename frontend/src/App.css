@@ -6,11 +6,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Adjust if you want vertical alignment */
-  padding: 20px;
 }
 
 .grid-wrapper {
-  margin: 0 10px; /* Adds some space between the grids */
+  /*margin: 0 10px; /* Adds some space between the grids */
 }
 
 .settings-container {

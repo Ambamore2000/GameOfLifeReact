@@ -1,25 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import GridDisplay from './components/GridDisplay'; // Import GridDisplay
-import SettingsPane from './components/SettingsPane'; // Import GridDisplay
+import GridDisplay from './components/GridDisplay';
+import SettingsPane from './components/SettingsPane';
+import PatternMenu from './components/PatternMenu';
+
+const patterns = {
+    "Still Lifes": {
+        "Block": [[1, 1], [1, 1]],
+        "Bee-Hive": [[0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 1, 0]],
+        "Loaf": [[0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 0, 1], [0, 0, 1, 0]],
+        "Boat": [[1, 1, 0], [1, 0, 1], [0, 1, 0]],
+        "Tub": [[0, 1, 0], [1, 0, 1], [0, 1, 0]]
+    },
+    "Oscillators": {
+        "Blinker": [[1, 1, 1]],
+        "Toad": [[0, 1, 1, 1], [1, 1, 1, 0]],
+        "Beacon": [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]],
+        "Pulsar": [
+            [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
+        ],
+        "Penta-decathlon": [
+            [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+        ]
+    },
+    "Spaceships": {
+        "Glider": [[0, 1, 0], [0, 0, 1], [1, 1, 1]],
+        "LWSS (Light-Weight Space Ship)": [[0, 1, 0, 0, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0]],
+        "MWSS (Middle-Weight Space Ship)": [[0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 0]],
+        "HWSS (Heavy-Weight Space Ship)": [[0, 1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 1, 1, 0]],
+        "Gosper glider gun": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    }
+};
 
 function App() {
+    // Grids and Initialization
     const [gridModelData, setGridModelData] = useState([]);
     const [gridActualData, setGridActualData] = useState([]);
     const [windowSize, setWindowSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
-    const [isSimulating, setIsSimulating] = useState(false);
 
-    // Function to initialize an empty 100x100 grid
     const initializeGrid = () => {
         const newGrid = new Array(100).fill(null).map(() => new Array(100).fill(0));
         setGridModelData(newGrid);
-        setGridActualData(newGrid); // Initialize both grids
+        setGridActualData(newGrid);
     };
 
-    // Update window size on resize
     useEffect(() => {
         const handleResize = () => {
             setWindowSize({
@@ -31,19 +80,47 @@ function App() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    // Initialize grids on component mount
     useEffect(() => {
         initializeGrid();
     }, []);
 
 
-    const handlePlayClick = () => {
-        // Define the actions to be taken when the Play button is clicked
+    // Settings
+
+    /// Play
+    const [isSimulating, setIsSimulating] = useState(false);
+
+    const toggleSimulation = () => {
+        setIsSimulating(!isSimulating);
     };
+
+    /// Pattern
+
+    const [isPatternEnabled, setIsPatternEnabled] = useState(false);
+
+    const togglePattern = () => {
+        setIsPatternEnabled(!isPatternEnabled);
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsPatternEnabled(false);
+            }
+        };
+
+        // Add event listener
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Remove event listener on cleanup
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <div className="App">
+            {isPatternEnabled && <PatternMenu togglePattern={togglePattern} patterns={patterns} />}
             <div className="grid-container">
                 <div className="grid-wrapper">
                     <h2>Model Prediction</h2>
@@ -57,7 +134,11 @@ function App() {
                 </div>
 
                 <div className="settings-container">
-                    <SettingsPane onPlayClick={handlePlayClick} />
+                    <SettingsPane
+                        toggleSimulation={toggleSimulation}
+                        isSimulating={isSimulating}
+                        togglePattern={togglePattern}
+                        isPatternEnabled={isPatternEnabled} />
                 </div>
 
                 <div className="grid-wrapper">
