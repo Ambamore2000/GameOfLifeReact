@@ -43,6 +43,7 @@ function App() {
                     <h2>Model Prediction</h2>
                     <GridDisplay
                         isSimulating={isSimulating}
+                        isEditable={true}
                         gridData={gridModelData}
                         updateGridData={setGridModelData}
                         windowSize={windowSize}
@@ -53,6 +54,7 @@ function App() {
                     <h2>Actual Simulation</h2>
                     <GridDisplay
                         isSimulating={isSimulating}
+                        isEditable={false}
                         gridData={gridActualData}
                         updateGridData={setGridActualData}
                         windowSize={windowSize}

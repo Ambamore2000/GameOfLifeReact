@@ -1,6 +1,7 @@
 import React from 'react';
+import './GridDisplay.css'; // Import the new CSS file
 
-const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => {
+const GridDisplay = ({ isSimulating, isEditable, gridData, updateGridData, windowSize }) => {
     const margin = 100; // A small margin to reduce the overall grid size
     const numRows = gridData.length;
     const numCols = gridData[0]?.length || 0;
@@ -17,21 +18,21 @@ const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => 
     };
 
     const handleCellClick = (row, col) => {
-        if (!isSimulating) {
+        if (!isSimulating && isEditable) {
             toggleCellState(row, col);
         }
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className="grid-container">
             {gridData.map((column, columnIndex) => (
-                <div key={columnIndex} style={{ display: 'flex', flexDirection: 'column' }}>
+                <div key={columnIndex} className="grid-column">
                     {column.map((cell, cellIndex) => (
                         <div key={`${columnIndex}-${cellIndex}`} onClick={() => handleCellClick(columnIndex, cellIndex)}
+                            className={`grid-cell ${cell === 1 ? 'grid-cell-active' : ''}`}
                             style={{
                                 width: `${cellSize}px`,
                                 height: `${cellSize}px`,
-                                backgroundColor: cell === 1 ? 'black' : 'white'
                             }}
                         ></div>
                     ))}

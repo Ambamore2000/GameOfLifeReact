@@ -1,0 +1,19 @@
+.grid-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-cell {
+    /* Width and height will still need to be set inline due to their dynamic nature */
+    background-color: white; /* Default background color */
+}
+
+.grid-cell-active {
+    background-color: black;
+}
