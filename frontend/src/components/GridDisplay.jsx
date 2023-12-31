@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => {
-    const margin = 200; // A small margin to reduce the overall grid size
+    const margin = 0; // A small margin to reduce the overall grid size
     const numRows = gridData.length;
     const numCols = gridData[0]?.length || 0;
 
@@ -14,14 +14,14 @@ const GridDisplay = ({ isSimulating, gridData, updateGridData, windowSize }) => 
         const newGrid = JSON.parse(JSON.stringify(gridData)); // Use gridData
         newGrid[row][col] = gridData[row][col] ? 0 : 1; // Toggle the cell state
         updateGridData(newGrid); // Update the grid state using updateGridData
-      };
-    
-      const handleCellClick = (row, col) => {
+    };
+
+    const handleCellClick = (row, col) => {
         if (!isSimulating) {
-          toggleCellState(row, col);
+            toggleCellState(row, col);
         }
-      };
-    
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             {gridData.map((column, columnIndex) => (

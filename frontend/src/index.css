@@ -1,0 +1,13 @@
+:root {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.5;
+
+  color-scheme: light dark;
+  color: #F8F8F8;
+  background-color: #121212;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
