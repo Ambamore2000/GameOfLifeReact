@@ -3,8 +3,8 @@ import './App.css';
 import GridDisplay from './components/GridDisplay'; // Import GridDisplay
 
 function App() {
-    const [gridAData, setGridAData] = useState([]); // State for gridA data
-    const [gridBData, setGridBData] = useState([]); // State for gridB data
+    const [gridModelData, setGridModelData] = useState([]);
+    const [gridActualData, setGridActualData] = useState([]);
     const [windowSize, setWindowSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -14,8 +14,8 @@ function App() {
     // Function to initialize an empty 100x100 grid
     const initializeGrid = () => {
         const newGrid = new Array(100).fill(null).map(() => new Array(100).fill(0));
-        setGridAData(newGrid);
-        setGridBData(newGrid); // Initialize both grids
+        setGridModelData(newGrid);
+        setGridActualData(newGrid); // Initialize both grids
     };
 
     // Update window size on resize
@@ -40,21 +40,21 @@ function App() {
         <div className="App">
             <div className="grid-container">
                 <div className="grid-wrapper">
-                    <h2>Grid A</h2>
+                    <h2>Model Prediction</h2>
                     <GridDisplay
                         isSimulating={isSimulating}
-                        gridData={gridAData}
-                        updateGridData={setGridAData}
+                        gridData={gridModelData}
+                        updateGridData={setGridModelData}
                         windowSize={windowSize}
                     />
                 </div>
 
                 <div className="grid-wrapper">
-                    <h2>Grid B</h2>
+                    <h2>Actual Simulation</h2>
                     <GridDisplay
                         isSimulating={isSimulating}
-                        gridData={gridBData}
-                        updateGridData={setGridBData}
+                        gridData={gridActualData}
+                        updateGridData={setGridActualData}
                         windowSize={windowSize}
                     />
                 </div>
