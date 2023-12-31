@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import GridDisplay from './components/GridDisplay'; // Import GridDisplay
+import SettingsPane from './components/SettingsPane'; // Import GridDisplay
 
 function App() {
     const [gridModelData, setGridModelData] = useState([]);
@@ -36,6 +37,11 @@ function App() {
         initializeGrid();
     }, []);
 
+
+    const handlePlayClick = () => {
+        // Define the actions to be taken when the Play button is clicked
+    };
+
     return (
         <div className="App">
             <div className="grid-container">
@@ -48,6 +54,10 @@ function App() {
                         updateGridData={setGridModelData}
                         windowSize={windowSize}
                     />
+                </div>
+
+                <div className="settings-container">
+                    <SettingsPane onPlayClick={handlePlayClick} />
                 </div>
 
                 <div className="grid-wrapper">

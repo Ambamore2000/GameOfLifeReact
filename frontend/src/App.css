@@ -12,3 +12,10 @@
 .grid-wrapper {
   margin: 0 10px; /* Adds some space between the grids */
 }
+
+.settings-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  /* Other styling as needed */
+}
