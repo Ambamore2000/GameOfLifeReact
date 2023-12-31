@@ -7,3 +7,6 @@
 }
 
 /* Additional styles for the settings pane */
+span {
+    background-color: black;
+}

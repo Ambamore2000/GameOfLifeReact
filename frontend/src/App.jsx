@@ -102,6 +102,14 @@ function App() {
         setIsPatternEnabled(!isPatternEnabled);
     };
 
+    /// Speed
+
+    const [simulationSpeed, setSimulationSpeed] = useState(200);
+
+    const handleSpeedChange = (e) => {
+        setSimulationSpeed(e.target.value);
+    };
+
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') {
@@ -138,7 +146,9 @@ function App() {
                         toggleSimulation={toggleSimulation}
                         isSimulating={isSimulating}
                         togglePattern={togglePattern}
-                        isPatternEnabled={isPatternEnabled} />
+                        isPatternEnabled={isPatternEnabled}
+                        simulationSpeed={simulationSpeed}
+                        handleSpeedChange={handleSpeedChange} />
                 </div>
 
                 <div className="grid-wrapper">
